@@ -7,10 +7,10 @@ done = False
 
 while not done:
     for event in pygame.event.get():
-      if event.type == pygame.QUIT:
-          done = True
+        if event.type == pygame.QUIT:
+            done = True
     for y in range(800):
         for x in range(1000):
-            screen.set_at((x,y), pygame.Color(255,int(x/screen_height*255),int(y/screen_width*255)))
+            screen.set_at((x,y), pygame.Color(255,int(x/screen_width*255),int(y/screen_height*255)))
     pygame.display.update()
 pygame.quit()
