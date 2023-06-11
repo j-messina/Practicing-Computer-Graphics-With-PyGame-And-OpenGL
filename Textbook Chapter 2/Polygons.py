@@ -1,4 +1,3 @@
-# generic code for drawing on a pygame screen
 import pygame
 pygame.init()
 screen_width = 1000
@@ -11,5 +10,6 @@ while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
+    pygame.draw.polygon(screen, white, ((150,200), (600,400), (400, 600)))
     pygame.display.update()
 pygame.quit()
