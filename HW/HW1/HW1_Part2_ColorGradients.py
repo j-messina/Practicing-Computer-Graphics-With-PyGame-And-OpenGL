@@ -7,6 +7,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 done = False
 
 white = pygame.Color(255, 255, 255)
+red   = pygame.Color(255, 0, 0)
 green = pygame.Color(0, 255, 0)
 blue  = pygame.Color(0, 0, 255)
 
@@ -37,31 +38,26 @@ def draw_line_low(slope, y_intercept, start_color, end_color):
         y = int(slope * x + y_intercept)
         screen.set_at((x + xoriginoffset, y + yoriginoffset), interp_color)
 
-def draw_line_high(slope, x_intercept, start_color, end_color):
-    for y in range(start_range, end_range):
-        x = int(slope * y + x_intercept)
-        screen.set_at((x + xoriginoffset, y + yoriginoffset), white)
+def draw_line_high(slope, y_intercept, color):
+    x_intercept = -1 * y_intercept / slope
+    for y in range(range_start, range_end):
+        x = int((1/slope) * y + x_intercept)
+        screen.set_at((x + xoriginoffset, y + yoriginoffset), color)
 
-def draw_line(slope, y_intercept, start_color, end_color):
-    if x <= 1:
-        draw_line_low(slope, y_intercept, start_color, end_color)
+def draw_line(slope, y_intercept, color):
+    if abs(slope) <= 1:
+        draw_line_low(slope, y_intercept, color)
     else:
-        x_intercept = -1 * y_intercept / slope
-        draw_line_high(1/slope, x_intercept, start_color, end_color)
+        draw_line_high(slope, y_intercept, color)
 
 while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
-    # x axis
-    for x in range(-500, 500):
-        screen.set_at((x + xoriginoffset, yoriginoffset), white)
-    # y axis
-    for y in range(-400, 400):
-        screen.set_at((xoriginoffset, y + yoriginoffset), white)
 
     # draw draw_line_low with interpolated color gradient from green to blue
-    draw_line_low(1/4, 0, green, blue)
+    draw_line(1/8, 25, green, blue)
+    draw_line(4, -25, red, green)
 
     pygame.display.update()
 pygame.quit()
